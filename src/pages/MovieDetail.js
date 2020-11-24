@@ -4,8 +4,9 @@ import {useHistory} from 'react-router-dom'
 import {MovieState} from '../MovieState'
 
 // animation
-import {pageAnimation} from '../animation'
 import {motion} from 'framer-motion'
+
+import ScrollTop from '../components/ScrollTop'
 
 const MovieDetail = () => {
     const history = useHistory()
@@ -39,6 +40,7 @@ const MovieDetail = () => {
             </ImageDisplay>
         </Details>
         }
+        <ScrollTop/>
         </>
     )
 }
@@ -57,6 +59,9 @@ const HeadLine = styled.div`
         top: 10%;
         left: 50%;
         transform: translate(-50%, -10%);
+        @media (max-width: 1500px) {
+            font-size: 3rem
+        }
     }
     img {
         width: 100%;
@@ -71,6 +76,10 @@ const Awards = styled.div`
     margin: 5rem, 10rem;
     align-items: center;
     justify-content: space-around;
+    @media (max-width: 1500px) {
+    display: block;
+    margin: 2rem 2rem;
+    }
 `
 const AwardStyle = styled.div`
     padding: 5rem;

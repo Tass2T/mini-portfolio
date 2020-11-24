@@ -6,8 +6,16 @@ import {Link} from 'react-router-dom'
 import {motion} from 'framer-motion'
 //pageAnimation has staggerChildren
 import {pageAnimation, fade, photoAnim, lineAnim, slider} from '../animation'
+import {useScroll} from '../components/useScroll'
+import {scrollReaveal} from '../animation'
+// scroll up when page changes
+import ScrollTop from '../components/ScrollTop'
 
 const OurWork = () => {
+
+    const [element, controls] = useScroll()
+    const [element2, controls2] = useScroll()
+
     return (
             <Work variants={pageAnimation} initial="hidden" animate="show" exit="exit" style={{background:'#fff'}}>
                 <Frame1 variants={slider}></Frame1>
@@ -17,30 +25,31 @@ const OurWork = () => {
                 <Movie>
                     <motion.h2 variants={fade}>The Athlete</motion.h2>
                     <motion.div variants={lineAnim} className="line"></motion.div>
-                    <Link>
+                    <Link to="/work/the-athlete">
                         <Hide>
                             <motion.img variants={photoAnim} src={athlete} alt="athlete" />
                         </Hide>
                     </Link>
                 </Movie>
-                <Movie>
+                <Movie ref={element} variants={scrollReaveal} animate={controls} initial='hidden'>
                     <motion.h2 variants={fade}>Theracer</motion.h2>
                     <motion.div variants={lineAnim} className="line"></motion.div>
-                    <Link>
+                    <Link to="/work/the-racer">
                         <Hide>
                             <motion.img variants={photoAnim} src={theracer} alt="theracer" />
                         </Hide>
                     </Link>
                 </Movie>
-                <Movie>
+                <Movie ref={element2} variants={scrollReaveal} animate={controls2} initial='hidden'>
                     <motion.h2 variants={fade}>Good times</motion.h2>
                     <motion.div variants={lineAnim} className="line"></motion.div>
-                    <Link>
+                    <Link to="/work/good-times">
                         <Hide>
                             <motion.img variants={photoAnim} src={goodtimes} alt="goodtimes" />
                         </Hide>
                     </Link>
                 </Movie>
+                <ScrollTop/>
             </Work>
     )
 }
@@ -50,11 +59,14 @@ const Work = styled(motion.div)`
     overflow: hidden;
     padding: 5rem 10rem;
     background: white;
+    @media (max-width: 1300px) {
+    padding: 2rem 2rem;
+    }
     h2{
         padding: 1rem 0rem;
     }
 `
-const Movie = styled.div`
+const Movie = styled(motion.div)`
     padding-bottom: 10rem;
     .line {
        height:0.5rem;
